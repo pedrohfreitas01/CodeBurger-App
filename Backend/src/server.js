@@ -1,4 +1,4 @@
-const app = requite("./app.js")
+const app = require("./app.js")
 
-app.listen(300)
+app.listen(3000)
 
