@@ -1,14 +1,13 @@
-const { response } = require("express")
 
-const { Router } = requite("express")
+const { Router } = require("express");
 
-const routes = new Router()
-
+const routes = new Router();
 
 routes.get('/', (req, res) => {
-    return response.json({message: "Hello mundo"})
-})
+    return res.json({ message: "Hello mundo" });
+});
 
 
+                                            
 
-module.exports = routes
+module.exports = routes;

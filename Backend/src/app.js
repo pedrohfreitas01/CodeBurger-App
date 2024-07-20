@@ -22,4 +22,4 @@ class App{
 
 
 
-module.exports = new App().app
+module.exports = new App()
