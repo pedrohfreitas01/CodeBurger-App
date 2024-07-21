@@ -1,4 +1,11 @@
-const app = require("./app.js")
+import app from "./app"
 
-app.listen(3000)
+
+const port = 3000
+
+
+
+app.listen(port, () => {
+    console.log(`App listening on port ${port} 🚀`)
+})
 
