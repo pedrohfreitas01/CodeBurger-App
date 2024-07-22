@@ -1,5 +1,5 @@
 {
-  "name": "backend",
+  "name": "backend-codeburger",
   "version": "1.0.0",
   "description": "",
   "main": "src/server.js",
@@ -9,13 +9,15 @@
     "debug": "nodemon --inspect"
   },
   "keywords": [],
-  "author": "",
+  "author": "Pedro Freitas",
   "license": "ISC",
   "dependencies": {
     "express": "^4.19.2"
   },
   "devDependencies": {
+    "eslint": "^9.7.0",
     "nodemon": "^3.1.4",
+    "prettier": "^3.3.3",
     "sucrase": "^3.35.0"
   }
 }
