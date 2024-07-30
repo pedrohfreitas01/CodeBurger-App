@@ -18,6 +18,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull:false
       },
+      category: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       path: {
         type: Sequelize.STRING,
         allowNull: false

@@ -1,22 +1,26 @@
-import express from "express"
-import routes  from "./routes"
-import './database'
-
+import express from "express";
+import routes from "./routes";
+import "./database";
+import { resolve } from "path";
 class App {
-    constructor() {
-        this.app = express()
-    
-        this.middlewares()
-        this.routes()
-    }
+  constructor() {
+    this.app = express();
 
-    middlewares() {
-        this.app.use(express.json())  //the server has to use JSON
-    }
+    this.middlewares();
+    this.routes();
+  }
 
-    routes() {
-        this.app.use(routes); // routes available to inteire app
-    }
+  middlewares() {
+    this.app.use(express.json()); //the server has to use JSON
+    this.app.use(
+      "/product-file",
+      express.static(resolve(__dirname, "..", "uploads"))
+    );
+  }
+
+  routes() {
+    this.app.use(routes); // routes available to inteire app
+  }
 }
 
-export default  new App().app
+export default new App().app;
