@@ -15,10 +15,19 @@ class CategoriesController {
 
     const { name } = req.body;
 
-    const categories = await Categories.create({
-      name,
-    });
-    return res.json(categories);
+    const categoriesExists = await Categories.findOne({
+      where: {
+        name,
+      }
+    })
+
+    if (categoriesExists) {
+      return res.status(400).json({error: 'Category already exist'})
+    }
+
+    const {id} = await Categories.create({name});
+    
+    return res.json({name, id});
   }
   async index(req, res) {
     const allCategories = await Categories.findAll();
