@@ -1,5 +1,9 @@
 import * as Yup from "yup";
 import User from "../models/User";
+import jwt from "jsonwebtoken";
+import auth from "../../config/auth";
+
+
 
 class SessionController {
   async store(req, res) {
@@ -8,7 +12,6 @@ class SessionController {
       password: Yup.string().required(),
     });
 
-    
     if (!(await schema.isValid(req.body))) {
       //
       return res
@@ -17,7 +20,7 @@ class SessionController {
     }
 
     const { email, password } = req.body;
-      
+
     const user = await User.findOne({
       where: { email },
     });
@@ -27,12 +30,22 @@ class SessionController {
         .status(400)
         .json({ error: "Make sure your password or email are correct" });
     }
-      
-      if (!(await user.checkPassword(password))) {
-        return res.status(401).json({error: "Make sure your password or email are correct"})
+
+    if (!(await user.checkPassword(password))) {
+      return res
+        .status(401)
+        .json({ error: "Make sure your password or email are correct" });
     }
 
-    return res.json({id: user.id, email, name: user.name, admin: user.admin})
+    return res.json({
+      id: user.id,
+      email,
+      name: user.name,
+      admin: user.admin,
+      token: jwt.sign({ id: user.id }, auth.secret , {
+        expiresIn: auth.expiresIn,
+      }),
+    });
   }
 }
 
