@@ -4,12 +4,14 @@ import configDatabase from "../config/database";
 import User from "../app/models/User";
 import Products from "../app/models/Products";
 import Categories from "../app/models/Categories";
+import mongoose from "mongoose";
 
 const models = [User, Products, Categories];
 
 class Database {
   constructor() {
     this.init();
+    this.mongo();
   }
 
   init() {
@@ -19,6 +21,12 @@ class Database {
       .map(
         (model) => model.associate && model.associate(this.connection.models)
       );
+  }
+
+  mongo() {
+    this.mongoConnection = mongoose.connect(
+      "mongodb://localhost:27017/codeburger"
+    );
   }
 }
 
