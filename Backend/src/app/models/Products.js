@@ -1,4 +1,4 @@
-import { Model, Sequelize } from "sequelize";
+import Sequelize,{ Model } from "sequelize";
 
 class Products extends Model {
   static init(sequelize) {
@@ -6,7 +6,6 @@ class Products extends Model {
       {
         name: Sequelize.STRING,
         price: Sequelize.INTEGER,
-        category: Sequelize.STRING,
         path: Sequelize.STRING,
         url: {
           type: Sequelize.VIRTUAL,
@@ -19,6 +18,15 @@ class Products extends Model {
         sequelize,
       }
     );
+
+    return this;
+  }
+
+  static associate(models) {
+    this.belongsTo(models.Categories, {
+      foreignKey: 'category_id',
+      as: 'category',
+     });
   }
 }
 

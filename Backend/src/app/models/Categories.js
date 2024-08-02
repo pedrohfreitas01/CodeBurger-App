@@ -1,4 +1,4 @@
-import { Model, Sequelize } from "sequelize";
+import Sequelize,{ Model} from "sequelize";
 
 class Categories extends Model {
   static init(sequelize) {
@@ -11,6 +11,7 @@ class Categories extends Model {
         sequelize,
       }
     );
+    return this
   }
 }
 

@@ -1,23 +1,25 @@
 //conecterd model with postgres BDD
-import Sequelize  from "sequelize";
-import configDatabase from "../config/database"
-import User from '../app/models/User'
+import Sequelize from "sequelize";
+import configDatabase from "../config/database";
+import User from "../app/models/User";
 import Products from "../app/models/Products";
 import Categories from "../app/models/Categories";
 
-const models = [User, Products, Categories]
+const models = [User, Products, Categories];
 
+class Database {
+  constructor() {
+    this.init();
+  }
 
-class Database{
-    constructor() {
-        this.init()
-    }
-
-    init() {
-        this.connection = new Sequelize(configDatabase)
-        models.map((model) => model.init(this.connection))
-    }
+  init() {
+    this.connection = new Sequelize(configDatabase);
+    models
+      .map((model) => model.init(this.connection))
+      .map(
+        (model) => model.associate && model.associate(this.connection.models)
+      );
+  }
 }
 
-
-export default new Database;
+export default new Database();
