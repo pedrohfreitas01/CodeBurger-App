@@ -1,11 +1,11 @@
 import * as Yup from "yup";
 import Categories from "../models/Categories";
 import Products from "../models/Products";
-import Order from "../schemas/Order"
+import Order from "../schemas/Order";
 
 class OrderController {
   async store(req, res) {
-    const schema = Yup.object().shape({
+    `const schema = Yup.object().shape({
       products: Yup.array()
         .required()
         .of(
@@ -20,7 +20,7 @@ class OrderController {
       await schema.validateSync(req.body, { abortEarly: false });
     } catch (err) {
       return res.status(400).json({ error: err.errors });
-    }
+    }`
 
     const productsId = req.body.products.map((product) => product.id);
 
@@ -68,6 +68,36 @@ class OrderController {
     } catch (error) {
       return res.status(400).json({ error: error.message });
     }
+  }
+
+  async index(req, res) {
+    const orders = await Order.find();
+
+    return res.json(orders);
+  }
+
+  async update(req, res) {
+    const schema = Yup.object().shape({
+      status: Yup.string().required(),
+    });
+
+    try {
+      await schema.validateSync(req.body, { abortEarly: false });
+    } catch (err) {
+      return res.status(400).json({ error: err.errors });
+      }
+    
+    const { id } = req.params;
+    const { status } = req.body;
+
+      try {
+        await Order.updateOne({ _id: id }, { status });      
+      } catch (error) {
+          return res.status(400).json({error: error.message})
+      }
+    
+
+    return res.json({ message: "Status was updated" });
   }
 }
 
