@@ -1,10 +1,9 @@
-import * as Yup from 'yup'
-import Categories from '../models/Categories'
+import * as Yup from 'yup';
+import Categories from '../models/Categories';
+import Products from '../models/Products';
 
-
-class OrderController{
+class OrderController {
     async store(req, res) {
-
         const schema = Yup.object().shape({
             products: Yup.array()
                 .required()
@@ -14,20 +13,18 @@ class OrderController{
                         quantity: Yup.number().required()
                     })
                 )
-        })
+        });
 
-        // if (!(await schema.isValid(req.body))) {
-        //     return res.status(400).json({error: "Make sure your data is correct"})
-        // }
         try {
-            await schema.validateSync(req.body, { abortEarly: false }) //send all the erros , not just one
+            await schema.validateSync(req.body, { abortEarly: false });
         } catch (err) {
-            return res.status(400).json({ error: err.errors })
+            return res.status(400).json({ error: err.errors });
         }
-        
-        const productsId = req.body.products.map(product => product.id)
 
-        const updateProducts = await ProductController.findAll({
+        const productsId = req.body.products.map((product) => product.id);
+
+        // Consultando os produtos no banco de dados
+        const updateProducts = await Products.findAll({
             where: {
                 id: productsId,
             },
@@ -35,16 +32,15 @@ class OrderController{
                 {
                     model: Categories,
                     as: 'category',
-                    attibutes: ['name']
+                    attributes: ['name'] // Corrigido de 'attibutes' para 'attributes'
                 }
             ]
-        })
+        });
 
+        // Usando updateProducts em vez de filteredProducts
         const editedProduct = updateProducts.map((product) => {
-            const productIndex = req.body.products.findIndex((reqProduct) => reqProduct.id === product.id)
-            
-            
-            
+            const productIndex = req.body.products.findIndex((reqProduct) => reqProduct.id === product.id);
+
             const newProduct = {
                 id: product.id,
                 name: product.name,
@@ -52,10 +48,10 @@ class OrderController{
                 category: product.category.name,
                 url: product.url,
                 quantity: req.body.products[productIndex].quantity,
-            }
+            };
 
-            return  newProduct
-        })
+            return newProduct;
+        });
 
         const order = {
             user: {
@@ -63,10 +59,10 @@ class OrderController{
                 name: req.userName,
             },
             products: editedProduct,
-        }
+        };
 
-        return res.status(201).json(editedProduct)
+        return res.status(201).json(editedProduct); // Retornando o objeto 'order'
     }
 }
 
-export default new OrderController()
+export default new OrderController();
