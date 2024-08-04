@@ -1,6 +1,7 @@
 import * as Yup from "yup";
 import Products from "../models/Products";
 import Categories from '../models/Categories'
+import User from "../models/User";
 
 
 class ProductController{
@@ -16,6 +17,12 @@ class ProductController{
         } catch (err) {
             return res.status(400).json({error: err.errors })
         }
+
+    const {admin: isAdmin} = await User.findByPk(req.userId)
+
+    if (!isAdmin) {
+      return res.status(401).json()
+    }
 
         const { filename: path } = req.file
         const {name, price, category_id} = req.body

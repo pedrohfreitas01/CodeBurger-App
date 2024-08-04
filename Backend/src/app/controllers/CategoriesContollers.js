@@ -1,5 +1,7 @@
 import * as Yup from "yup";
 import Categories from "../models/Categories";
+import User from "../models/User"
+
 
 class CategoriesController {
   async store(req, res) {
@@ -11,6 +13,12 @@ class CategoriesController {
       await schema.validateSync(req.body, { abortEarly: false }); //send all the erros , not just one
     } catch (err) {
       return res.status(400).json({ error: err.errors });
+    }
+
+    const {admin: isAdmin} = await User.findByPk(req.userId)
+
+    if (!isAdmin) {
+      return res.status(401).json()
     }
 
     const { name } = req.body;
