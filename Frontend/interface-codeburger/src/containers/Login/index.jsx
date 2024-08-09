@@ -12,8 +12,21 @@ import {
   Button,
   SignInLink,
 } from "./style";
+import { useForm } from "react-hook-form";
+
+// type Inputs = {
+//   example: string
+//   exampleRequired: string
+// }
 
 function Login() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => console.log(data);
+
   return (
     <Container>
       <ImageBurger src={LoginImg} alt="login-image"></ImageBurger>
@@ -21,15 +34,18 @@ function Login() {
         <img src={LogoBurger} alt="logo-burger"></img>
         <h2>Login</h2>
 
-        <Label>Email</Label>
-        <Input />
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Label>Email</Label>
+          <Input type="email" {...register("email")} />
 
-        <Label>Senha</Label>
-        <Input />
+          <Label>Senha</Label>
+          <Input type="password" {...register("password")} />
 
-        <Button>Sign In</Button>
+          <Button type="submit">Sign In</Button>
+        </form>
+
         <SignInLink>
-          Nao possui conta? <a>Sing UP</a>{" "}
+          Nao possui conta? <a>Sing UP</a>
         </SignInLink>
       </ContainerItens>
     </Container>
