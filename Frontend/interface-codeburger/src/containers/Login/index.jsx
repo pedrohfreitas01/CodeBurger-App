@@ -11,8 +11,12 @@ import {
   Input,
   Button,
   SignInLink,
+  ErrorFormMsn,
 } from "./style";
 import { useForm } from "react-hook-form";
+
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 // type Inputs = {
 //   example: string
@@ -20,12 +24,25 @@ import { useForm } from "react-hook-form";
 // }
 
 function Login() {
+  const schema = Yup.object().shape({
+    email: Yup.string()
+      .email("Send a valid name")
+      .required("Email is required"),
+    password: Yup.string()
+      .required("The password is required")
+      .min(6, "The password must have unleast 6 characters"),
+  });
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-  const onSubmit = (data) => console.log(data);
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = data => console.log(data);
+  
 
   return (
     <Container>
@@ -34,12 +51,14 @@ function Login() {
         <img src={LogoBurger} alt="logo-burger"></img>
         <h2>Login</h2>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form noValidate onSubmit={handleSubmit(onSubmit)}>
           <Label>Email</Label>
           <Input type="email" {...register("email")} />
+          <ErrorFormMsn>{errors.email?.message}</ErrorFormMsn>
 
           <Label>Senha</Label>
           <Input type="password" {...register("password")} />
+          <ErrorFormMsn>{errors.password?.message}</ErrorFormMsn>
 
           <Button type="submit">Sign In</Button>
         </form>
