@@ -17,6 +17,8 @@ import { useForm } from "react-hook-form";
 
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import apiCodeBurger from "../../services/api";
+
 
 // type Inputs = {
 //   example: string
@@ -41,7 +43,14 @@ function Login() {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = data => console.log(data);
+  const onSubmit = async clientData => {
+    const response = await apiCodeBurger.post('sessions', {
+      email: clientData.email,
+      password: clientData.password
+    })
+
+    console.log(response);
+  }
   
 
   return (
