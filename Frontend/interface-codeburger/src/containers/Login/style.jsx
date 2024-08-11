@@ -66,31 +66,6 @@ export const Input = styled.input`
   padding-left: 10px;
 `;
 
-export const Button = styled.button`
-  width: 182.81px;
-  height: 36.129px;
-  background: #9758a6;
-  border-radius: 20px;
-  border: none;
-  cursor: pointer;
-  color: #eee;
-  text-align: center;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  margin-top: 75px;
-  margin-bottom: 25px;
-
-  &:hover {
-    opacity: 0.8;
-  }
-
-  &:active {
-    opacity: 0.4;
-  }
-`;
-
 export const SignInLink = styled.a`
   color: #fff;
   font-family: Roboto;

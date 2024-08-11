@@ -9,7 +9,6 @@ import {
   ContainerItens,
   Label,
   Input,
-  Button,
   SignInLink,
   ErrorFormMsn,
 } from "./style";
@@ -18,7 +17,7 @@ import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import apiCodeBurger from "../../services/api";
-
+import Button from "../../components/Button/index";
 
 // type Inputs = {
 //   example: string
@@ -43,15 +42,14 @@ function Login() {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async clientData => {
-    const response = await apiCodeBurger.post('sessions', {
+  const onSubmit = async (clientData) => {
+    const response = await apiCodeBurger.post("sessions", {
       email: clientData.email,
-      password: clientData.password
-    })
+      password: clientData.password,
+    });
 
     console.log(response);
-  }
-  
+  };
 
   return (
     <Container>
@@ -69,7 +67,9 @@ function Login() {
           <Input type="password" {...register("password")} />
           <ErrorFormMsn>{errors.password?.message}</ErrorFormMsn>
 
-          <Button type="submit">Sign In</Button>
+          <Button type="submit" style={{ marginTop: 75, marginBottom: 25 }}>
+            Sign In
+          </Button>
         </form>
 
         <SignInLink>
