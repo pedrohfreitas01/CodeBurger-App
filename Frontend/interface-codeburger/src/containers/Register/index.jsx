@@ -18,6 +18,7 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import apiCodeBurger from "../../services/api";
 import Button from "../../components/Button/index";
+import { toast } from "react-toastify";
 
 function Register() {
   const schema = Yup.object().shape({
@@ -42,13 +43,27 @@ function Register() {
   });
 
   const onSubmit = async (clientData) => {
-    const response = await apiCodeBurger.post("users", {
-      name: clientData.name,
-      email: clientData.email,
-      password: clientData.password,
-    });
+    try {
+      const { status } = await apiCodeBurger.post(
+        "users",
+        {
+          name: clientData.name,
+          email: clientData.email,
+          password: clientData.password,
+        },
+        { validateStatus: () => true }
+      );
 
-    console.log(response);
+      if (status === 201 || status === 200) {
+        toast.success("You are all set 🎇", {});
+      } else if (status === 409) {
+        toast.error("Email already used ⚠️");
+      } else {
+        throw new Error()
+      }
+    } catch (err) {
+      toast.error("Server error! Please try again later. 🚨");
+    }
   };
 
   return (

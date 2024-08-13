@@ -18,6 +18,7 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import apiCodeBurger from "../../services/api";
 import Button from "../../components/Button/index";
+import { toast } from "react-toastify";
 
 // type Inputs = {
 //   example: string
@@ -43,10 +44,20 @@ function Login() {
   });
 
   const onSubmit = async (clientData) => {
-    const response = await apiCodeBurger.post("sessions", {
-      email: clientData.email,
-      password: clientData.password,
-    });
+    const response = await toast.promise(
+      apiCodeBurger.post("sessions", {
+        email: clientData.email,
+        password: clientData.password,
+      }),
+      {
+        pending: "Promise is pending",
+        success: "Welcome Back 😍",
+        error: "Something wrong, check your email and password ❌",
+      }
+    );
+      
+      
+      
 
     console.log(response);
   };

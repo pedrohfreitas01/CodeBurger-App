@@ -5,6 +5,7 @@ import Login from './containers/Login'
 import GlobalStyles from './styles/globalStyles'
 import Register from './containers/Register/index'
 
+import { ToastContainer, toast } from "react-toastify";
 
 
 
@@ -13,7 +14,8 @@ import Register from './containers/Register/index'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <>
-      <Login></Login>
+      <Register></Register>
+      <ToastContainer theme='colored' />
       <GlobalStyles></GlobalStyles>
     </>
   </React.StrictMode>,
