@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom/client'
 
 import Login from './containers/Login'
 import GlobalStyles from './styles/globalStyles'
+import Register from './containers/Register/index'
+
+
 
 
 

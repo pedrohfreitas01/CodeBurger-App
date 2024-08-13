@@ -10,7 +10,7 @@ export const ContainerButton = styled.button`
   border-radius: 20px;
   border: none;
   cursor: pointer;
-  color: #eee;
+  color: #ffffff;
   text-align: center;
   font-size: 16px;
   font-style: normal;
