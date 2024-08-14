@@ -1,22 +1,21 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
+import React from "react";
+import ReactDOM from "react-dom/client";
 
-import Login from './containers/Login'
-import GlobalStyles from './styles/globalStyles'
-import Register from './containers/Register/index'
+import Login from "./containers/Login";
+import GlobalStyles from "./styles/globalStyles";
+import Register from "./containers/Register/index";
 
 import { ToastContainer, toast } from "react-toastify";
+import { UserProvider } from "./hooks/UserContext";
 
-
-
-
-
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <>
-      <Register></Register>
-      <ToastContainer theme='colored' />
+      <UserProvider>
+        <Login></Login>
+      </UserProvider>
+      <ToastContainer theme="colored" />
       <GlobalStyles></GlobalStyles>
     </>
-  </React.StrictMode>,
-)
+  </React.StrictMode>
+);

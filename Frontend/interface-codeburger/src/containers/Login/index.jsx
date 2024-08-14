@@ -19,6 +19,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import apiCodeBurger from "../../services/api";
 import Button from "../../components/Button/index";
 import { toast } from "react-toastify";
+import { useUser } from "../../hooks/UserContext";
 
 // type Inputs = {
 //   example: string
@@ -26,6 +27,8 @@ import { toast } from "react-toastify";
 // }
 
 function Login() {
+  const galera = useUser()
+  console.log(galera);
   const schema = Yup.object().shape({
     email: Yup.string()
       .email("Send a valid name")
@@ -55,9 +58,6 @@ function Login() {
         error: "Something wrong, check your email and password ❌",
       }
     );
-      
-      
-      
 
     console.log(response);
   };
