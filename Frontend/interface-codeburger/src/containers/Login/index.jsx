@@ -27,8 +27,8 @@ import { useUser } from "../../hooks/UserContext";
 // }
 
 function Login() {
-  const galera = useUser()
-  console.log(galera);
+  const { putUserData, userData } = useUser();
+
   const schema = Yup.object().shape({
     email: Yup.string()
       .email("Send a valid name")
@@ -47,7 +47,7 @@ function Login() {
   });
 
   const onSubmit = async (clientData) => {
-    const response = await toast.promise(
+    const {data} = await toast.promise(
       apiCodeBurger.post("sessions", {
         email: clientData.email,
         password: clientData.password,
@@ -59,7 +59,9 @@ function Login() {
       }
     );
 
-    console.log(response);
+    
+    putUserData(data)
+    console.log(userData);
   };
 
   return (
