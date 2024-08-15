@@ -20,6 +20,7 @@ import apiCodeBurger from "../../services/api";
 import Button from "../../components/Button/index";
 import { toast } from "react-toastify";
 import { useUser } from "../../hooks/UserContext";
+import { Link } from "react-router-dom";
 
 // type Inputs = {
 //   example: string
@@ -86,7 +87,10 @@ function Login() {
         </form>
 
         <SignInLink>
-          Nao possui conta? <a>Sing UP</a>
+          Nao possui conta?{" "}
+          <Link to={"/register"} style={{ color: "white" }}>
+            Sing UP
+          </Link>
         </SignInLink>
       </ContainerItens>
     </Container>
