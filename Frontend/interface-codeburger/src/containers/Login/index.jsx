@@ -27,7 +27,7 @@ import { useUser } from "../../hooks/UserContext";
 // }
 
 function Login() {
-  const { putUserData, userData } = useUser();
+  const { putUserData } = useUser();
 
   const schema = Yup.object().shape({
     email: Yup.string()

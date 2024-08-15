@@ -1,16 +1,29 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 const UserContext = createContext({});
 
 export const UserProvider = ({ children }) => {
+  const [userData, setUserData] = useState({});
 
-    const [userData, setUserData] = useState({})
+  //funcao grava os dados
+  const putUserData = async (userInfo) => {
+    setUserData(userInfo);
 
-    const putUserData = (userInfo) => {
-        setUserData(userInfo)
+    await localStorage.setItem("codeburger:userData", JSON.stringify(userInfo));
+  };
+  //recuperando os dados
+  useEffect(() => {
+    const loadUserData = async () => {
+      const clientInfo = await localStorage.getItem("codeburger:userData");
+    
+      if (clientInfo) {
+        setUserData(JSON.parse(clientInfo))
+      }
     }
 
+    loadUserData();
+  }, [])
 
 
   return (
@@ -25,13 +38,11 @@ export const useUser = () => {
 
   if (!context) {
     throw new Error("useUser must be used with UserContext");
-    }
-    
-    return context
+  }
+
+  return context;
 };
 
 UserProvider.propTypes = {
   childre: PropTypes.node,
 };
-
-
