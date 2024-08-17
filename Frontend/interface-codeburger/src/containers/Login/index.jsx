@@ -20,7 +20,7 @@ import apiCodeBurger from "../../services/api";
 import Button from "../../components/Button/index";
 import { toast } from "react-toastify";
 import { useUser } from "../../hooks/UserContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // type Inputs = {
 //   example: string
@@ -28,6 +28,7 @@ import { Link } from "react-router-dom";
 // }
 
 function Login() {
+  const navigate = useNavigate();
   const { putUserData } = useUser();
 
   const schema = Yup.object().shape({
@@ -48,7 +49,7 @@ function Login() {
   });
 
   const onSubmit = async (clientData) => {
-    const {data} = await toast.promise(
+    const { data } = await toast.promise(
       apiCodeBurger.post("sessions", {
         email: clientData.email,
         password: clientData.password,
@@ -60,9 +61,11 @@ function Login() {
       }
     );
 
-    
-    putUserData(data)
-    console.log(userData);
+    putUserData(data);
+
+    setTimeout(() => {
+      navigate("/");
+    }, 1000);
   };
 
   return (
