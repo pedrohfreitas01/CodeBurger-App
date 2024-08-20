@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import categoryImg from "../../assets/homeCategoriImg.png";
+import offersImg from "../../assets/homeOfferIMG.png";
 import {
   CategoryImgLogo,
   Container,
@@ -10,21 +10,24 @@ import {
 import Slider from "react-slick";
 import api from "../../services/api";
 
-function CategoryCarousel() {
-  const [categories, setCategories] = useState([]);
+function OffersCarousel() {
+  const [offers, setOffers] = useState([]);
 
   useEffect(() => {
-    async function loadCategories() {
+    async function loadOffers() {
       try {
-        const { data } = await api.get("categories");
-        console.log("Categorias carregadas:", data); // Verifica se os dados estão corretos
-        setCategories(data);
+        const { data } = await api.get("products");
+
+        const onlyOffer = data.filter( product => product.offer)
+
+        console.log("Offers carregadas:", onlyOffer); // Verifica se os dados estão corretos
+        setOffers(onlyOffer);
       } catch (error) {
-        console.error("Erro ao carregar categorias:", error);
+        console.error("Erro ao carregar ofertas:", error);
       }
     }
 
-    loadCategories();
+    loadOffers();
   }, []);
 
   //setting para o carrousel
@@ -69,16 +72,15 @@ function CategoryCarousel() {
 
   return (
     <Container>
-      <CategoryImgLogo src={categoryImg} alt="logo-category" />
+      <CategoryImgLogo src={offersImg} alt="logo-offer" />
 
-      <Slider
-        {...settings}
-        style={{ width: "90%", textAlign: "center" }}
-      >
-        {categories.map((category) => (
-          <ContainerItens key={category.id}>
-            <ImageCate src={category.url} alt={category.name} />
-            <Button>{category.name}</Button>
+      <Slider {...settings} style={{ width: "90%", textAlign: "center" }}>
+        {offers.map((product) => (
+          <ContainerItens key={product.id}>
+            <ImageCate src={product.url} alt={product.name} />
+            <p>{product.name}</p>
+            <p>{product.price}</p>
+            <Button>Order now</Button>
           </ContainerItens>
         ))}
       </Slider>
@@ -86,4 +88,4 @@ function CategoryCarousel() {
   );
 }
 
-export default CategoryCarousel;
+export default OffersCarousel;
