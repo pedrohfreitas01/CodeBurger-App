@@ -9,6 +9,7 @@ import {
 } from "./style";
 import Slider from "react-slick";
 import api from "../../services/api";
+import formatCurrency from "../../utils/formatCurrency";
 
 function OffersCarousel() {
   const [offers, setOffers] = useState([]);
@@ -18,7 +19,9 @@ function OffersCarousel() {
       try {
         const { data } = await api.get("products");
 
-        const onlyOffer = data.filter( product => product.offer)
+        const onlyOffer = data.filter(product => product.offer).map(product => {
+          return{...product, formatedPrice: formatCurrency(product.price)}
+        })
 
         console.log("Offers carregadas:", onlyOffer); // Verifica se os dados estão corretos
         setOffers(onlyOffer);
@@ -26,6 +29,7 @@ function OffersCarousel() {
         console.error("Erro ao carregar ofertas:", error);
       }
     }
+
 
     loadOffers();
   }, []);
@@ -79,7 +83,7 @@ function OffersCarousel() {
           <ContainerItens key={product.id}>
             <ImageCate src={product.url} alt={product.name} />
             <p>{product.name}</p>
-            <p>{product.price}</p>
+            <p>{product.formatedPrice}</p>
             <Button>Order now</Button>
           </ContainerItens>
         ))}
