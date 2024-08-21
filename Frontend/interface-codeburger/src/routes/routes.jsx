@@ -5,6 +5,7 @@ import Home from "../containers/Home";
 import PrivateRoutes from "./private-routes";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Products from "../containers/Products";
 
 function SwitchRoutes() {
   return (
@@ -17,6 +18,14 @@ function SwitchRoutes() {
           element={
             <PrivateRoutes>
               <Home />
+            </PrivateRoutes>
+          }
+        />
+        <Route
+          path="/products"
+          element={
+            <PrivateRoutes>
+              <Products />
             </PrivateRoutes>
           }
         />
