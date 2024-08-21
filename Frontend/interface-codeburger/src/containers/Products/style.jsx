@@ -7,6 +7,7 @@ export const Container = styled.div`
   align-items: center;
   height: 100%; /* Garante que o container ocupe a altura total da tela */
   gap: 20px;
+  background: #efefef;
 `;
 
 export const ProductImg = styled.img`
@@ -36,5 +37,14 @@ export const CategoryBtn = styled.button`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-padding-bottom: 5px;
+  padding-bottom: 5px;
+`;
+
+export const ProductContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  padding: 40px;
+  justify-content: center;
+  margin-top: 20px;
 `;

@@ -10,4 +10,8 @@ export default createGlobalStyle`
         font-family: "Roboto", sans-serif;
         outline: none;
     }
+
+     body {
+    overflow-x: hidden; /* Evita o overflow horizontal */
+  }
 `;

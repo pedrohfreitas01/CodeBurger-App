@@ -1,27 +1,52 @@
 import React, { useEffect, useState } from "react";
 
 import productPhoto from "../../assets/productsImglOGO.svg";
-import { Container, ProductImg, CategoryBtn, CategoriesMenu } from "./style";
+import {
+  Container,
+  ProductImg,
+  CategoryBtn,
+  CategoriesMenu,
+  ProductContainer,
+} from "./style";
 import api from "../../services/api";
+import CardProduct from "../../components/CardProduct";
+
+import formatCurrency from "../../utils/formatCurrency";
 
 function Products() {
   const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
   const [activeCategory, setActiveCategory] = useState(0);
 
   useEffect(() => {
     async function loadCategories() {
       try {
         const { data } = await api.get("categories");
-        console.log("Categorias carregadas:", data); // Verifica se os dados estão corretos
+        console.log("Categorias loaded:", data); // Verifica se os dados estão corretos
 
         const newCategories = [{ id: 0, name: "Todos" }, ...data];
 
         setCategories(newCategories);
       } catch (error) {
-        console.error("Erro ao carregar categorias:", error);
+        console.error("Error load cate:", error);
       }
     }
 
+    async function loadProducts() {
+      try {
+        const { data: allProducts } = await api.get("products");
+
+        const newProducts = allProducts.map((product) => {
+          return { ...product, formatedPrice: formatCurrency(product.price) };
+        });
+
+        setProducts(newProducts);
+      } catch (error) {
+        console.error("Erro load producst:", error);
+      }
+    }
+
+    loadProducts();
     loadCategories();
   }, []);
   return (
@@ -32,7 +57,7 @@ function Products() {
           categories.map((category) => (
             <CategoryBtn
               key={category.id}
-              isActiveCategory = {activeCategory == category.id}
+              isActiveCategory={activeCategory == category.id}
               onClick={() => {
                 setActiveCategory(category.id);
               }}
@@ -41,6 +66,12 @@ function Products() {
             </CategoryBtn>
           ))}
       </CategoriesMenu>
+      <ProductContainer>
+        {products &&
+          products.map((product) => (
+            <CardProduct key={product.id} product={product} />
+          ))}
+      </ProductContainer>
     </Container>
   );
 }
