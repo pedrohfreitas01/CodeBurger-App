@@ -1,13 +1,8 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%; /* Garante que o container ocupe a altura total da tela */
-  gap: 20px;
   background: #efefef;
+  min-height: 100vh;
 `;
 
 export const ProductImg = styled.img`

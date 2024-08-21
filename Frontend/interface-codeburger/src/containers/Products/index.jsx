@@ -17,6 +17,7 @@ function Products() {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [activeCategory, setActiveCategory] = useState(0);
+  const [filteredProducts, setFilteredProducts] = useState(0);
 
   useEffect(() => {
     async function loadCategories() {
@@ -49,6 +50,19 @@ function Products() {
     loadProducts();
     loadCategories();
   }, []);
+
+  useEffect(() => {
+    if (activeCategory === 0) {
+      setFilteredProducts(products);
+    } else {
+      const newFilterProducts = products.filter(
+        (product) => product.category_id === activeCategory
+      );
+
+      setFilteredProducts(newFilterProducts);
+    }
+  }, [activeCategory, products]);
+
   return (
     <Container>
       <ProductImg src={productPhoto} alt="home-logo" />
@@ -67,8 +81,8 @@ function Products() {
           ))}
       </CategoriesMenu>
       <ProductContainer>
-        {products &&
-          products.map((product) => (
+        {filteredProducts &&
+          filteredProducts.map((product) => (
             <CardProduct key={product.id} product={product} />
           ))}
       </ProductContainer>
