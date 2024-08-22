@@ -9,11 +9,11 @@ import {
   ProductContainer,
 } from "./style";
 import api from "../../services/api";
-import CardProduct from "../../components/CardProduct";
+import { CardProduct } from "../../components";
 
 import formatCurrency from "../../utils/formatCurrency";
 
-function Products() {
+export function Products() {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [activeCategory, setActiveCategory] = useState(0);
@@ -90,4 +90,3 @@ function Products() {
   );
 }
 
-export default Products;

@@ -17,7 +17,8 @@ import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import apiCodeBurger from "../../services/api";
-import Button from "../../components/Button/index";
+import { Button } from "../../components";
+
 import { toast } from "react-toastify";
 import { useUser } from "../../hooks/UserContext";
 import { Link, useNavigate } from "react-router-dom";
@@ -27,7 +28,7 @@ import { Link, useNavigate } from "react-router-dom";
 //   exampleRequired: string
 // }
 
-function Login() {
+export function Login() {
   const navigate = useNavigate();
   const { putUserData } = useUser();
 
@@ -100,4 +101,4 @@ function Login() {
   );
 }
 
-export default Login;
+

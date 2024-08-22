@@ -10,7 +10,7 @@ import {
 import Slider from "react-slick";
 import api from "../../services/api";
 
-function CategoryCarousel() {
+export function CategoryCarousel() {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -85,5 +85,4 @@ function CategoryCarousel() {
     </Container>
   );
 }
-
-export default CategoryCarousel;
+;

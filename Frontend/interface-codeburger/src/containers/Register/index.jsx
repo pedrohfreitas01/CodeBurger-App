@@ -17,11 +17,11 @@ import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import apiCodeBurger from "../../services/api";
-import Button from "../../components/Button/index";
+import { Button } from "../../components/";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
-function Register() {
+export function Register() {
   const schema = Yup.object().shape({
     name: Yup.string().required("Name is required"),
     email: Yup.string()
@@ -60,7 +60,7 @@ function Register() {
       } else if (status === 409) {
         toast.error("Email already used ⚠️");
       } else {
-        throw new Error()
+        throw new Error();
       }
     } catch (err) {
       toast.error("Server error! Please try again later. 🚨");
@@ -97,11 +97,13 @@ function Register() {
         </form>
 
         <SignInLink>
-          already have an account ? <Link style={{color: 'white'}} to={'/login'}>Sing IN</Link>
+          already have an account ?{" "}
+          <Link style={{ color: "white" }} to={"/login"}>
+            Sing IN
+          </Link>
         </SignInLink>
       </ContainerItens>
     </Container>
   );
 }
 
-export default Register;
