@@ -44,5 +44,5 @@ export const useUser = () => {
 };
 
 UserProvider.propTypes = {
-  childre: PropTypes.node,
+  children: PropTypes.node,
 };

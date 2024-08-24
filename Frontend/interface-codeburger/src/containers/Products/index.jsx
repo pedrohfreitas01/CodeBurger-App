@@ -89,4 +89,3 @@ export function Products() {
     </Container>
   );
 }
-
