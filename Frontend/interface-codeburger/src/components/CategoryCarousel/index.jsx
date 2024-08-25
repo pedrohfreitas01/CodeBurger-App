@@ -10,6 +10,8 @@ import {
 import Slider from "react-slick";
 import api from "../../services/api";
 
+
+
 export function CategoryCarousel() {
   const [categories, setCategories] = useState([]);
 
@@ -71,10 +73,7 @@ export function CategoryCarousel() {
     <Container>
       <CategoryImgLogo src={categoryImg} alt="logo-category" />
 
-      <Slider
-        {...settings}
-        style={{ width: "90%", textAlign: "center" }}
-      >
+      <Slider {...settings} style={{ width: "90%", textAlign: "center" }}>
         {categories.map((category) => (
           <ContainerItens key={category.id}>
             <ImageCate src={category.url} alt={category.name} />
@@ -85,4 +84,3 @@ export function CategoryCarousel() {
     </Container>
   );
 }
-;

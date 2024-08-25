@@ -27,12 +27,9 @@ export const Container = styled.div`
   .slick-slide {
     padding: 0 15px; // Ajusta o espaçamento entre os slides
   }
-
 `;
 
-
 export const CategoryImgLogo = styled.img``;
-
 
 export const ContainerItens = styled.div`
   display: flex;
@@ -42,7 +39,8 @@ export const ContainerItens = styled.div`
 `;
 
 export const ImageCate = styled.img`
-  width: 200px;
+  width: 22px;
+  
   border-radius: 10px;
 `;
 

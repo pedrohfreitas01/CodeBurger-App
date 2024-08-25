@@ -19,6 +19,7 @@ export const Container = styled.div`
 export const Image = styled.img`
   width: 186px;
   border-radius: 10px;
+  height: 172px;
 `;
 
 export const ProductName = styled.p`
