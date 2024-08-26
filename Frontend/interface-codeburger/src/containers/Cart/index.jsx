@@ -1,15 +1,17 @@
 import React from "react";
 
 import cartLogoImg from "../../assets/cartPhotoSection.svg";
-import { Container, CartImg } from "./style";
-import { CategoryCarousel, OffersCarousel, CartItens } from "../../components";
-
+import { Container, CartImg, Wrapper } from "./style";
+import { CartItens, CartResume } from "../../components";
 
 export function Cart() {
   return (
     <Container>
       <CartImg src={cartLogoImg} alt="cart-logo" />
-      <CartItens/>
+      <Wrapper>
+        <CartItens />
+        <CartResume/>
+      </Wrapper>
     </Container>
   );
 }
