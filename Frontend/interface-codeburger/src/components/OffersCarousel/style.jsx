@@ -6,6 +6,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 35px;
   padding: 35px 0;
 
@@ -28,17 +29,16 @@ export const Container = styled.div`
     padding: 0 15px; // Ajusta o espaçamento entre os slides
   }
 
+  
 `;
-
 
 export const CategoryImgLogo = styled.img``;
 
-
 export const ContainerItens = styled.div`
-  display: flex;
-  flex-direction: column;
   align-items: center; /* Centraliza o conteúdo horizontalmente */
+  justify-content: center;
   width: 100%; /* Garante que o item ocupe toda a largura do contêiner */
+  border: 1px solid black;
 
   p {
     color: var(--Theme-Gray-800, #424242);
@@ -48,10 +48,16 @@ export const ContainerItens = styled.div`
     font-weight: 700;
     line-height: 120%; /* 26.4px */
   }
+
+  .slick-track {
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 export const ImageCate = styled.img`
   width: 200px;
+  height: 200px;
   border-radius: 10px;
   margin-bottom: 16px;
 `;

@@ -19,9 +19,11 @@ export function OffersCarousel() {
       try {
         const { data } = await api.get("products");
 
-        const onlyOffer = data.filter(product => product.offer).map(product => {
-          return{...product, formatedPrice: formatCurrency(product.price)}
-        })
+        const onlyOffer = data
+          .filter((product) => product.offer)
+          .map((product) => {
+            return { ...product, formatedPrice: formatCurrency(product.price) };
+          });
 
         console.log("Offers carregadas:", onlyOffer); // Verifica se os dados estão corretos
         setOffers(onlyOffer);
@@ -29,7 +31,6 @@ export function OffersCarousel() {
         console.error("Erro ao carregar ofertas:", error);
       }
     }
-
 
     loadOffers();
   }, []);
@@ -40,17 +41,15 @@ export function OffersCarousel() {
     infinite: true,
     slidesToShow: 4,
     slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 2000,
-    pauseOnHover: true,
+    centerMode: true, // Centraliza o slide ativo
     responsive: [
       {
         breakpoint: 1024,
         settings: {
           slidesToShow: 3,
-          slidesToScroll: 2,
-          infinite: true,
-          dots: true,
+          slidesToScroll: 1,
+          centerMode: true,
+          centerPadding: "30px",
         },
       },
       {
@@ -58,17 +57,8 @@ export function OffersCarousel() {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          centerMode: true, // Mantém o item centralizado
-          centerPadding: "30px", // Ajusta o padding ao redor do item
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          centerMode: true, // Mantém o item centralizado
-          centerPadding: "10px", // Ajusta o padding ao redor do item
+          centerMode: true,
+          centerPadding: "20px",
         },
       },
     ],
@@ -76,14 +66,28 @@ export function OffersCarousel() {
 
   return (
     <Container>
-      <CategoryImgLogo src={offersImg} alt="logo-offer" />
+      <CategoryImgLogo
+        src={offersImg}
+        alt="logo-offer"
+        className="slider-container"
+      />
 
-      <Slider {...settings} style={{ width: "90%", textAlign: "center" }}>
+      <Slider
+        {...settings}
+        style={{
+          width: "90%", // Garante que o slider não ocupe toda a largura, mas ainda é centralizado
+          margin: "0 auto", // Centraliza o slider horizontalmente
+          textAlign: "center", // Centraliza o texto dentro do slider
+          justifyContent: "center",
+        }}
+      >
         {offers.map((product) => (
           <ContainerItens key={product.id}>
             <ImageCate src={product.url} alt={product.name} />
+
             <p>{product.name}</p>
             <p>{product.formatedPrice}</p>
+
             <Button>Order now</Button>
           </ContainerItens>
         ))}
@@ -91,4 +95,3 @@ export function OffersCarousel() {
     </Container>
   );
 }
-

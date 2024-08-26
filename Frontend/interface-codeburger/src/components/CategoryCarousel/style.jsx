@@ -39,7 +39,7 @@ export const ContainerItens = styled.div`
 `;
 
 export const ImageCate = styled.img`
-  width: 22px;
+  width: 202px;
   
   border-radius: 10px;
 `;
