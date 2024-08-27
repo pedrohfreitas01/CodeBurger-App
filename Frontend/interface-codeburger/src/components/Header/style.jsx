@@ -20,6 +20,12 @@ export const ContainerLeft = styled.div`
 export const PageLink = styled.a`
   padding: 5px;
   cursor: pointer;
+  text-decoration: none;
+  font-size: 16px;
+  line-height: 19px;
+
+  color: ${(props) => (props.isActive ? "#9758A6" : "#555555")};
+  font-weight: ${(props) => (props.isActive ? "bold" : "normal")};
 `;
 
 export const PageLinkExit = styled.a`

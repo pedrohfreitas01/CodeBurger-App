@@ -8,7 +8,6 @@ import { CategoryCarousel, Header, OffersCarousel } from "../../components";
 export function Home() {
   return (
     <Container>
-      <Header></Header>
       <HomeImg src={homePhoto} alt="home-logo" />
       <CategoryCarousel />
       <OffersCarousel />
