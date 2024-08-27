@@ -13,10 +13,18 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 import profile from "../../assets/profile.svg";
 import cart from "../../assets/cart.png";
+import { useUser } from "../../hooks/UserContext";
 
 export function Header() {
+  const { logout } = useUser();
+
   const navigate = useNavigate();
   const { pathname } = useLocation();
+
+  const logoutUser = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <Container>
@@ -43,7 +51,7 @@ export function Header() {
 
         <ContainerText>
           <p>Ola , Potter</p>
-          <PageLinkExit>Sair</PageLinkExit>
+          <PageLinkExit onClick={logoutUser}>Sair</PageLinkExit>
         </ContainerText>
       </ContainerRight>
     </Container>
