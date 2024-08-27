@@ -23,7 +23,7 @@ export function CartResume() {
 
     setFinalPrice(sumAllItens);
   }, [cartProducts, delivery]);
-
+      
   return (
     <ResumeContainer>
       <ItemsContainer>

@@ -4,4 +4,5 @@ export * from "./CategoryCarousel";
 export * from "./OffersCarousel";
 export * from "./CartItens"
 export * from "./CartResume";
+export * from "./Header";
 
