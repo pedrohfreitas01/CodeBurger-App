@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Login, Register, Home, Products, Cart } from "../containers";
+import { Login, Register, Home, Products, Cart, Admin } from "../containers";
 
 import PrivateRoutes from "./private-routes";
 
@@ -33,6 +33,14 @@ function SwitchRoutes() {
           element={
             <PrivateRoutes>
               <Cart />
+            </PrivateRoutes>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <PrivateRoutes isAdmin>
+              <Admin />
             </PrivateRoutes>
           }
         />

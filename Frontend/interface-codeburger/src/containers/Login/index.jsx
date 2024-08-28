@@ -65,7 +65,11 @@ export function Login() {
     putUserData(data);
 
     setTimeout(() => {
-      navigate("/");
+      if (data.admin) {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
     }, 1000);
   };
 
@@ -100,5 +104,3 @@ export function Login() {
     </Container>
   );
 }
-
-
