@@ -25,7 +25,6 @@ export function OffersCarousel() {
             return { ...product, formatedPrice: formatCurrency(product.price) };
           });
 
-        console.log("Offers carregadas:", onlyOffer); // Verifica se os dados estão corretos
         setOffers(onlyOffer);
       } catch (error) {
         console.error("Erro ao carregar ofertas:", error);

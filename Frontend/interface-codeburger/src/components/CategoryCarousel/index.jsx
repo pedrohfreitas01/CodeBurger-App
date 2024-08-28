@@ -10,8 +10,6 @@ import {
 import Slider from "react-slick";
 import api from "../../services/api";
 
-
-
 export function CategoryCarousel() {
   const [categories, setCategories] = useState([]);
 
@@ -19,7 +17,6 @@ export function CategoryCarousel() {
     async function loadCategories() {
       try {
         const { data } = await api.get("categories");
-        console.log("Categorias carregadas:", data); // Verifica se os dados estão corretos
         setCategories(data);
       } catch (error) {
         console.error("Erro ao carregar categorias:", error);
@@ -77,7 +74,14 @@ export function CategoryCarousel() {
         {categories.map((category) => (
           <ContainerItens key={category.id}>
             <ImageCate src={category.url} alt={category.name} />
-            <Button>{category.name}</Button>
+            <Button
+              to={{ pathname: "/products", state: { categoryId: category.id } }}
+              onClick={() =>
+                console.log("Navigating with categoryId carrusel:", category.id)
+              }
+            >
+              {category.name}
+            </Button>
           </ContainerItens>
         ))}
       </Slider>

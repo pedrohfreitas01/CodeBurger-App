@@ -1,5 +1,8 @@
 import styled from "styled-components";
 
+import { Link } from "react-router-dom";
+
+
 // Estiliza o contêiner do carrossel
 export const Container = styled.div`
   background-color: #efefef;
@@ -44,22 +47,25 @@ export const ImageCate = styled.img`
   border-radius: 10px;
 `;
 
-export const Button = styled.button`
-  /* margin-top: 16px;
+export const Button = styled(Link)`
+  margin-top: 16px;
   border-radius: 8px;
   background: #9758a6;
   box-shadow: 0px 5px 10px 0px rgba(151, 88, 166, 0.22),
     0px 20px 40px 0px rgba(151, 88, 166, 0.24);
   height: 50px;
   border: none;
+
+  
   font-style: normal;
   font-weight: bold;
   font-size: 20px;
   line-height: 100%;
   color: white;
   cursor: pointer;
-  padding: 21px 38px;
+  
+  justify-content: center;
   align-items: center;
-
-  display: flex; */
+  text-decoration: none;
+  display: flex;
 `;

@@ -16,7 +16,7 @@ import cart from "../../assets/cart.png";
 import { useUser } from "../../hooks/UserContext";
 
 export function Header() {
-  const { logout } = useUser();
+  const { logout, userData } = useUser();
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -50,7 +50,7 @@ export function Header() {
         </PageLink>
 
         <ContainerText>
-          <p>Ola , Potter</p>
+          <p>Hello {userData.name}</p>
           <PageLinkExit onClick={logoutUser}>Sair</PageLinkExit>
         </ContainerText>
       </ContainerRight>

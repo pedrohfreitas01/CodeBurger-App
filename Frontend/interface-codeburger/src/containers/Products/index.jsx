@@ -10,10 +10,18 @@ import {
 } from "./style";
 import api from "../../services/api";
 import { CardProduct } from "../../components";
-
+import PropTypes from "prop-types";
 import formatCurrency from "../../utils/formatCurrency";
+import { useLocation } from "react-router-dom";
 
 export function Products() {
+  const location = useLocation();
+  const categoryId = location.state?.categoryId || 0;
+
+  // console.log("categoryId na página de produtos:", categoryId);
+  console.log("Location:", location);
+  // console.log("categoryId:", categoryId);
+
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [activeCategory, setActiveCategory] = useState(0);
@@ -23,7 +31,6 @@ export function Products() {
     async function loadCategories() {
       try {
         const { data } = await api.get("categories");
-        console.log("Categorias loaded:", data); // Verifica se os dados estão corretos
 
         const newCategories = [{ id: 0, name: "Todos" }, ...data];
 
@@ -89,3 +96,7 @@ export function Products() {
     </Container>
   );
 }
+
+Products.propTypes = {
+  location: PropTypes.object,
+};
