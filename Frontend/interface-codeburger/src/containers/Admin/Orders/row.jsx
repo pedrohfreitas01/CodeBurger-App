@@ -15,12 +15,13 @@ import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { Container } from "./style";
+import formateDate from "../../../utils/formatDate";
 
 function Row({ row }) {
   const [open, setOpen] = React.useState(false);
-
+  
   return (
-    <Container>
+    <React.Fragment>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
         <TableCell>
           <IconButton
@@ -37,7 +38,6 @@ function Row({ row }) {
         <TableCell>{row.name}</TableCell>
         <TableCell>{row.date}</TableCell>
         <TableCell>{row.status}</TableCell>
-  
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -64,7 +64,11 @@ function Row({ row }) {
                       <TableCell>{productRow.name}</TableCell>
                       <TableCell>{productRow.category}</TableCell>
                       <TableCell>
-                        <img src={productRow.url} alt="product-img" />
+                        <img
+                          src={productRow.url}
+                          alt="product-img"
+                          style={{ width: "82px", height: "67px" }}
+                        />
                       </TableCell>
                     </TableRow>
                   ))}
@@ -74,7 +78,7 @@ function Row({ row }) {
           </Collapse>
         </TableCell>
       </TableRow>
-    </Container>
+    </React.Fragment>
   );
 }
 

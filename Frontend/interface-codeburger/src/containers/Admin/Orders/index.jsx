@@ -17,11 +17,12 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import api from "../../../services/api";
 import Row from "./row";
 import { Container } from "./style";
+import formateDate from "../../../utils/formatDate";
 
 function Orders() {
   const [orders, setOrders] = useState([]);
   const [rows, setRows] = useState([]);
- 
+
   useEffect(() => {
     async function loadOrder() {
       try {
@@ -38,11 +39,12 @@ function Orders() {
     loadOrder();
   }, []);
 
+
   function createData(order) {
     return {
       name: order.user.name,
       orderId: order._id,
-      date: order.createdAt,
+      date: formateDate(order.createdAt),
       status: order.status,
       products: order.products,
     };
@@ -54,16 +56,22 @@ function Orders() {
   }, [orders]);
 
   return (
-    <Container>
+    <Box
+      sx={{
+        backgroundColor: "#efefef", // Cor de fundo para a página toda
+        minHeight: "100vh", // Garante que a cor cubra toda a altura da página
+        padding: "20px",
+      }}
+    >
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow>
               <TableCell />
-              <TableCell>Order</TableCell>
-              <TableCell >Costumer</TableCell>
-              <TableCell >Order Date</TableCell>
-              <TableCell >Status</TableCell>
+              <TableCell >Order</TableCell>
+              <TableCell>Customer</TableCell>
+              <TableCell>Order Date</TableCell>
+              <TableCell>Status</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -73,7 +81,7 @@ function Orders() {
           </TableBody>
         </Table>
       </TableContainer>
-    </Container>
+    </Box>
   );
 }
 
