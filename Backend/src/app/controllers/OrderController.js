@@ -86,25 +86,43 @@ class OrderController {
       await schema.validateSync(req.body, { abortEarly: false });
     } catch (err) {
       return res.status(400).json({ error: err.errors });
-      }
-    const {admin: isAdmin} = await User.findByPk(req.userId)
+    }
+    const { admin: isAdmin } = await User.findByPk(req.userId);
 
     if (!isAdmin) {
-      return res.status(401).json()
+      return res.status(401).json();
     }
-    
-    
+
     const { id } = req.params;
     const { status } = req.body;
 
-      try {
-        await Order.updateOne({ _id: id }, { status });      
-      } catch (error) {
-          return res.status(400).json({error: error.message})
-      }
-    
+    try {
+      await Order.updateOne({ _id: id }, { status });
+    } catch (error) {
+      return res.status(400).json({ error: error.message });
+    }
 
     return res.json({ message: "Status was updated" });
+  }
+
+  async delete(req, res) {
+
+    const { id } = req.params;
+
+    try {
+      // Tenta encontrar e excluir a ordem pelo ID
+      const order = await Order.findById(id);
+
+      if (!order) {
+        return res.status(404).json({ error: "Order not found" });
+      }
+
+      await Order.findByIdAndDelete(id);
+
+      return res.status(200).json({ message: "Order deleted successfully" });
+    } catch (error) {
+      return res.status(400).json({ error: error.message });
+    }
   }
 }
 
