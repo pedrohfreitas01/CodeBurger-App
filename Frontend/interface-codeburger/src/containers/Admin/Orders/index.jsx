@@ -16,17 +16,18 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 import api from "../../../services/api";
 import Row from "./row";
+import { Container } from "./style";
 
 function Orders() {
   const [orders, setOrders] = useState([]);
   const [rows, setRows] = useState([]);
-
+ 
   useEffect(() => {
     async function loadOrder() {
       try {
         const { data } = await api.get("orders");
 
-        console.log(orders);
+        console.log("API Response Data:", data); // Verifique os dados aqui
 
         setOrders(data);
       } catch (error) {
@@ -53,24 +54,26 @@ function Orders() {
   }, [orders]);
 
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="collapsible table">
-        <TableHead>
-          <TableRow>
-            <TableCell />
-            <TableCell>Order</TableCell>
-            <TableCell align="right">Costumer</TableCell>
-            <TableCell align="right">Order Date</TableCell>
-            <TableCell align="right">Status</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <Row key={row.orderId} row={row} />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <Container>
+      <TableContainer component={Paper}>
+        <Table aria-label="collapsible table">
+          <TableHead>
+            <TableRow>
+              <TableCell />
+              <TableCell>Order</TableCell>
+              <TableCell >Costumer</TableCell>
+              <TableCell >Order Date</TableCell>
+              <TableCell >Status</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <Row key={row.orderId} row={row} />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Container>
   );
 }
 
