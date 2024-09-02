@@ -16,11 +16,14 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 import api from "../../../services/api";
 import Row from "./row";
-import { Container } from "./style";
+import { LinkMenu, Menu } from "./style";
 import formateDate from "../../../utils/formatDate";
+import status from "./order-status";
 
 function Orders() {
   const [orders, setOrders] = useState([]);
+  const [filtredOrders, setFiltredOrders] = useState([]);
+  const [activeStatus, setActiveStatus] = useState(1);
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
@@ -31,6 +34,7 @@ function Orders() {
         console.log("API Response Data:", data); // Verifique os dados aqui
 
         setOrders(data);
+        setFiltredOrders(data);
       } catch (error) {
         console.error("Error load order:", error);
       }
@@ -38,7 +42,6 @@ function Orders() {
 
     loadOrder();
   }, []);
-
 
   function createData(order) {
     return {
@@ -51,9 +54,23 @@ function Orders() {
   }
 
   useEffect(() => {
-    const newRows = orders.map((ord) => createData(ord));
+    const newRows = filtredOrders.map((ord) => createData(ord));
     setRows(newRows);
-  }, [orders]);
+  }, [filtredOrders]);
+
+  function handleStatus(status) {
+    console.log("Status clicado:", status); // Verifica o status recebido
+
+    if (status.id === 1) {
+      setFiltredOrders(orders); // Mostrar todos os pedidos
+    } else {
+      const newOrders = orders.filter((order) => order.status === status.value);
+      console.log("Pedidos filtrados:", newOrders); // Verifica o resultado da filtragem
+      setFiltredOrders(newOrders); // Atualiza a lista de pedidos filtrados
+    }
+
+    setActiveStatus(status.id);
+  }
 
   return (
     <Box
@@ -63,12 +80,25 @@ function Orders() {
         padding: "20px",
       }}
     >
+      <Menu>
+        {status &&
+          status.map((status) => (
+            <LinkMenu
+              key={status.id}
+              onClick={() => handleStatus(status)}
+              isActiveStatus={activeStatus === status.id}
+            >
+              {status.label}
+            </LinkMenu>
+          ))}
+      </Menu>
+
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow>
               <TableCell />
-              <TableCell >Order</TableCell>
+              <TableCell>Order</TableCell>
               <TableCell>Customer</TableCell>
               <TableCell>Order Date</TableCell>
               <TableCell>Status</TableCell>
