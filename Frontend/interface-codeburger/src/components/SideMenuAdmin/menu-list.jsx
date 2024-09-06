@@ -19,7 +19,7 @@ const listMenu = [
   {
     id: 3,
     label: "Add New Product",
-    link: "/newproduct",
+    link: paths.NewProduct,
     icon: AddBoxIcon,
   },
 ];

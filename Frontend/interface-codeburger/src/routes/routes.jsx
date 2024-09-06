@@ -53,6 +53,14 @@ function SwitchRoutes() {
             </PrivateRoutes>
           }
         />
+        <Route
+          path={paths.NewProduct}
+          element={
+            <PrivateRoutes isAdmin>
+              <Admin />
+            </PrivateRoutes>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
