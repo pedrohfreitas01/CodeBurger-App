@@ -5,6 +5,7 @@ import { Login, Register, Home, Products, Cart, Admin } from "../containers";
 import PrivateRoutes from "./private-routes";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import paths from "../utils/constance/path";
 
 function SwitchRoutes() {
   return (
@@ -37,7 +38,7 @@ function SwitchRoutes() {
           }
         />
         <Route
-          path="/admin"
+          path={paths.AdminOrder}
           element={
             <PrivateRoutes isAdmin>
               <Admin />
@@ -45,7 +46,7 @@ function SwitchRoutes() {
           }
         />
         <Route
-          path="/listProducts"
+          path={paths.Products}
           element={
             <PrivateRoutes isAdmin>
               <Admin />

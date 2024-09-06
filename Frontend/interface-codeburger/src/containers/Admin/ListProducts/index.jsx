@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Container } from "./style";
+import { Container, EditIconStyled } from "./style";
 import api from "../../../services/api";
-
 
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -82,7 +81,7 @@ function ListProducts() {
                   />
                 </TableCell>
                 <TableCell>
-                  <button>Edit</button>
+                  <EditIconStyled />
                 </TableCell>
               </TableRow>
             ))}

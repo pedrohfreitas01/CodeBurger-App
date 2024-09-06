@@ -1,18 +1,19 @@
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
 import AddBoxIcon from "@mui/icons-material/AddBox";
+import paths from "../../utils/constance/path";
 
 const listMenu = [
   {
     id: 1,
     label: "Pedidos",
-    link: "/admin",
+    link: paths.AdminOrder,
     icon: ShoppingBagIcon,
   },
   {
     id: 2,
-    label: "Producst",
-    link: "/products",
+    label: "Products",
+    link: paths.Products,
     icon: FastfoodIcon,
   },
   {
