@@ -24,7 +24,6 @@ function ListProducts() {
         const { data } = await api.get("/products");
 
         if (data) {
-          console.log("API Response Data:", data);
           setProducts(data);
         } else {
           console.warn("No data received from API");

@@ -31,8 +31,6 @@ function Orders() {
       try {
         const { data } = await api.get("orders");
 
-        console.log("API Response Data:", data); // Verifique os dados aqui
-
         setOrders(data);
         setFiltredOrders(data);
       } catch (error) {

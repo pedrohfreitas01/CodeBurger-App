@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   background: #3c3c3c;
-
   box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.15);
   width: 264px;
   top: 0;
@@ -19,9 +18,13 @@ export const ItemContainer = styled.div`
   height: 60px;
   display: flex;
   align-items: center;
-  background: ${props => props.isActive ? '#565656' : ''};
+  background: ${(props) =>
+    props.isActive
+      ? "#565656"
+      : "transparent"}; /* Cor de fundo do item ativo */
   border-radius: 2px;
   margin: 8px;
+  cursor: pointer;
 
   .icon {
     color: white;
