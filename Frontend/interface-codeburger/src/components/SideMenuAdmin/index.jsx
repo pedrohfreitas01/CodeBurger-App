@@ -17,6 +17,7 @@ export function SideMenuAdm() {
       <hr />
       {listMenu.map((item) => (
         <ItemContainer
+          to={item.link}
           key={item.id}
           isActive={activeItem === item.id} // Verifica se o item é o ativo
           onClick={() => handleItemClick(item.id)} // Atualiza o item ativo ao clicar

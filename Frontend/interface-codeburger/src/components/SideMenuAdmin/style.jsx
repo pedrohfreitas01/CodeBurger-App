@@ -14,7 +14,7 @@ export const Container = styled.div`
   }
 `;
 
-export const ItemContainer = styled.div`
+export const ItemContainer = styled(Link)`
   height: 60px;
   display: flex;
   align-items: center;
@@ -25,19 +25,18 @@ export const ItemContainer = styled.div`
   border-radius: 2px;
   margin: 8px;
   cursor: pointer;
-
+  text-decoration: none;
   .icon {
     color: white;
     margin-left: 5px;
   }
 `;
 
-export const ListLink = styled(Link)`
+export const ListLink = styled.div`
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
   line-height: 19px;
   color: white;
-  text-decoration: none;
   margin-left: 8px;
 `;
