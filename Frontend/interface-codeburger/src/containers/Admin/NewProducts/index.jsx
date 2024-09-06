@@ -1,46 +1,75 @@
 import React, { useEffect, useState } from "react";
-import { Container, Label, Input } from "./style";
+import { Container, Label, Input, ButtonStyled, LabelUpload } from "./style";
 import api from "../../../services/api";
-
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import ReactSelect from "react-select";
-import { useForm } from "react-hook-form";
-
-import { Button } from "../../../components";
+import { useForm, Controller } from "react-hook-form";
 
 function NewProducts() {
   const {
     register,
     handleSubmit,
-    watch,
+    control,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
-  const [products, setProducts] = useState([]);
+  const [fileName, setFileName] = useState(null);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    async function loadOrder() {
-      const { data } = await api.post("/products");
+    async function loadCategories() {
+      const { data } = await api.get("categories");
+      
+      
+      setCategories(data);
     }
 
-    loadOrder();
+    loadCategories();
   }, []);
 
   return (
     <Container>
       <form noValidate>
         <Label>Name</Label>
-        <Input typeof="text" {...register("name")} />
+        <Input type="text" {...register("name")} />
 
         <Label>Price</Label>
         <Input type="number" {...register("price")} />
 
-        <Label>Upload Img</Label>
-        <Input type="file" accept="image/png, image/jpeg" />
+        <LabelUpload>
+          {fileName ? (
+            fileName
+          ) : (
+            <>
+              <CloudUploadIcon />
+              Send Product Image
+            </>
+          )}
+          <Input
+            type="file"
+            accept="image/png, image/jpeg"
+            {...register("file")}
+            onChange={(e) => {
+              setFileName(e.target.files[0]?.name);
+            }}
+          />
+        </LabelUpload>
 
-        <ReactSelect />
+        <Controller
+          name="category_id"
+          control={control}
+          render={({ field }) => (
+            <ReactSelect
+              {...field}
+              options={categories}
+              getOptionLabel={(cat) => cat.name}
+              getOptionValue={(cat) => cat.id}
+              placeholder="Select a category..."
+            />
+          )}
+        />
 
-        <Button>Add new Product</Button>
+        <ButtonStyled>Add new Product</ButtonStyled>
       </form>
     </Container>
   );
