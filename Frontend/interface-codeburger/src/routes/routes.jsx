@@ -44,6 +44,14 @@ function SwitchRoutes() {
             </PrivateRoutes>
           }
         />
+        <Route
+          path="/listProducts"
+          element={
+            <PrivateRoutes isAdmin>
+              <Admin />
+            </PrivateRoutes>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

@@ -5,5 +5,10 @@ export const Container = styled.div`
   min-height: 100vh;
   width: 100vw;
   background: #efefef;
-    padding: 10px;
+  
 `;
+
+
+export const ContainerItens = styled.div`
+  padding: 20px;
+`
