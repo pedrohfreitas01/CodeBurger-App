@@ -80,13 +80,3 @@ export const SignInLink = styled.a`
     
   }
 `;
-
-export const ErrorFormMsn = styled.p`
-  color: #cc1717;
-  font-family: Roboto;
-  font-size: 15px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  margin-top: 9px;
-`;

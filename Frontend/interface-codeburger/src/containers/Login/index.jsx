@@ -10,14 +10,13 @@ import {
   Label,
   Input,
   SignInLink,
-  ErrorFormMsn,
 } from "./style";
 import { useForm } from "react-hook-form";
 
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import apiCodeBurger from "../../services/api";
-import { Button } from "../../components";
+import { Button, ErrorFormMsn } from "../../components";
 
 import { toast } from "react-toastify";
 import { useUser } from "../../hooks/UserContext";

@@ -4,6 +4,23 @@ import api from "../../../services/api";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import ReactSelect from "react-select";
 import { useForm, Controller } from "react-hook-form";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { ErrorFormMsn } from "../../../components";
+
+// Definindo o esquema de validação fora do componente
+const schema = Yup.object().shape({
+  name: Yup.string().required("Name Product is required"),
+  price: Yup.string().required("Price Product is required"),
+  category: Yup.object().required("Choose one category"),
+  file: Yup.mixed()
+    .required("Product image is required")
+    .test(
+      "fileSize",
+      "The file is too large. Maximum size is 2 MB.",
+      (value) => !value || (value && value[0]?.size <= 2 * 1024 * 1024) // 2MB em bytes
+    ),
+});
 
 function NewProducts() {
   const {
@@ -11,7 +28,9 @@ function NewProducts() {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   const [fileName, setFileName] = useState(null);
   const [categories, setCategories] = useState([]);
@@ -19,22 +38,28 @@ function NewProducts() {
   useEffect(() => {
     async function loadCategories() {
       const { data } = await api.get("categories");
-      
-      
       setCategories(data);
     }
 
     loadCategories();
   }, []);
 
+  // Função de submissão do formulário
+  const onSubmit = (data) => {
+    console.log(data);
+    // Aqui você pode enviar os dados para a API ou realizar outras ações
+  };
+
   return (
     <Container>
-      <form noValidate>
+      <form noValidate onSubmit={handleSubmit(onSubmit)}>
         <Label>Name</Label>
         <Input type="text" {...register("name")} />
+        <ErrorFormMsn>{errors.name?.message}</ErrorFormMsn>
 
         <Label>Price</Label>
         <Input type="number" {...register("price")} />
+        <ErrorFormMsn>{errors.price?.message}</ErrorFormMsn>
 
         <LabelUpload>
           {fileName ? (
@@ -54,9 +79,11 @@ function NewProducts() {
             }}
           />
         </LabelUpload>
+        <ErrorFormMsn>{errors.file?.message}</ErrorFormMsn>
 
+        <Label>Category</Label>
         <Controller
-          name="category_id"
+          name="category"
           control={control}
           render={({ field }) => (
             <ReactSelect
@@ -68,8 +95,9 @@ function NewProducts() {
             />
           )}
         />
+        <ErrorFormMsn>{errors.category?.message}</ErrorFormMsn>
 
-        <ButtonStyled>Add new Product</ButtonStyled>
+        <ButtonStyled type="submit">Add new Product</ButtonStyled>
       </form>
     </Container>
   );
