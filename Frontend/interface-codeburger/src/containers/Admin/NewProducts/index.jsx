@@ -19,6 +19,13 @@ const schema = Yup.object().shape({
       "fileSize",
       "The file is too large. Maximum size is 2 MB.",
       (value) => !value || (value && value[0]?.size <= 2 * 1024 * 1024) // 2MB em bytes
+    )
+    .test(
+      "fileFormat",
+      "Unsupported format. Only PNG or JPEG allowed.",
+      (value) =>
+        !value ||
+        (value && ["image/jpeg", "image/png"].includes(value[0]?.type))
     ),
 });
 
@@ -53,50 +60,55 @@ function NewProducts() {
   return (
     <Container>
       <form noValidate onSubmit={handleSubmit(onSubmit)}>
-        <Label>Name</Label>
-        <Input type="text" {...register("name")} />
-        <ErrorFormMsn>{errors.name?.message}</ErrorFormMsn>
+        <div>
+          <Label>Name</Label>
+          <Input type="text" {...register("name")} />
+          <ErrorFormMsn>{errors.name?.message}</ErrorFormMsn>
+        </div>
+        <div>
+          <Label>Price</Label>
+          <Input type="number" {...register("price")} />
+          <ErrorFormMsn>{errors.price?.message}</ErrorFormMsn>
+        </div>
 
-        <Label>Price</Label>
-        <Input type="number" {...register("price")} />
-        <ErrorFormMsn>{errors.price?.message}</ErrorFormMsn>
-
-        <LabelUpload>
-          {fileName ? (
-            fileName
-          ) : (
-            <>
-              <CloudUploadIcon />
-              Send Product Image
-            </>
-          )}
-          <Input
-            type="file"
-            accept="image/png, image/jpeg"
-            {...register("file")}
-            onChange={(e) => {
-              setFileName(e.target.files[0]?.name);
-            }}
-          />
-        </LabelUpload>
-        <ErrorFormMsn>{errors.file?.message}</ErrorFormMsn>
-
-        <Label>Category</Label>
-        <Controller
-          name="category"
-          control={control}
-          render={({ field }) => (
-            <ReactSelect
-              {...field}
-              options={categories}
-              getOptionLabel={(cat) => cat.name}
-              getOptionValue={(cat) => cat.id}
-              placeholder="Select a category..."
+        <div>
+          <LabelUpload>
+            {fileName ? (
+              fileName
+            ) : (
+              <>
+                <CloudUploadIcon />
+                Send Product Image
+              </>
+            )}
+            <Input
+              type="file"
+              accept="image/png, image/jpeg"
+              {...register("file")}
+              onChange={(e) => {
+                setFileName(e.target.files[0]?.name);
+              }}
             />
-          )}
-        />
-        <ErrorFormMsn>{errors.category?.message}</ErrorFormMsn>
-
+          </LabelUpload>
+          <ErrorFormMsn>{errors.file?.message}</ErrorFormMsn>
+        </div>
+        <div>
+          <Label>Category</Label>
+          <Controller
+            name="category"
+            control={control}
+            render={({ field }) => (
+              <ReactSelect
+                {...field}
+                options={categories}
+                getOptionLabel={(cat) => cat.name}
+                getOptionValue={(cat) => cat.id}
+                placeholder="Select a category..."
+              />
+            )}
+          />
+          <ErrorFormMsn>{errors.category?.message}</ErrorFormMsn>
+        </div>
         <ButtonStyled type="submit">Add new Product</ButtonStyled>
       </form>
     </Container>
