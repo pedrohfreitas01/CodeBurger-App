@@ -7,6 +7,8 @@ import { useForm, Controller } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ErrorFormMsn } from "../../../components";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 // Definindo o esquema de validação fora do componente
 const schema = Yup.object().shape({
@@ -41,6 +43,7 @@ function NewProducts() {
 
   const [fileName, setFileName] = useState(null);
   const [categories, setCategories] = useState([]);
+  const {push} = useNavigate()
 
   useEffect(() => {
     async function loadCategories() {
@@ -52,8 +55,25 @@ function NewProducts() {
   }, []);
 
   // Função de submissão do formulário
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit =  async data => {
+    const productDataFormData = new FormData() 
+
+    productDataFormData.append('name', data.name)
+    productDataFormData.append("price", data.price);
+    productDataFormData.append("category_id", data.category.id);
+    productDataFormData.append("file", data.file[0]);
+
+
+    await toast.promise(api.post("products", productDataFormData), {
+      pending: "Adding new product",
+      success: "Product create !",
+      error: "Fail, something wrong"
+    })
+
+    setTimeout(() => {
+      push("/list-products");
+    })
+
     // Aqui você pode enviar os dados para a API ou realizar outras ações
   };
 
@@ -61,7 +81,7 @@ function NewProducts() {
     <Container>
       <form noValidate onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <Label>Name</Label>
+          <Label>Name</Label>``
           <Input type="text" {...register("name")} />
           <ErrorFormMsn>{errors.name?.message}</ErrorFormMsn>
         </div>
