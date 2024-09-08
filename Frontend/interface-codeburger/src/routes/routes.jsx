@@ -61,9 +61,19 @@ function SwitchRoutes() {
             </PrivateRoutes>
           }
         />
+        <Route
+          path={paths.EditProducts}
+          element={
+            <PrivateRoutes isAdmin>
+              <Admin />
+            </PrivateRoutes>
+          }
+        />
       </Routes>
+      
     </BrowserRouter>
   );
 }
 
 export default SwitchRoutes;
+
