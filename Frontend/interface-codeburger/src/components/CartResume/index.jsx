@@ -10,11 +10,15 @@ import {
 import { Button } from "./../Button";
 import { useCart } from "../../hooks/CartContext";
 import formatCurrency from "../../utils/formatCurrency";
+import apiCodeBurger from "../../services/api";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export function CartResume() {
   const { cartProducts } = useCart();
   const [finalPrice, setFinalPrice] = useState(0);
   const [delivery] = useState(5);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const sumAllItens = cartProducts.reduce((acc, current) => {
@@ -23,7 +27,23 @@ export function CartResume() {
 
     setFinalPrice(sumAllItens);
   }, [cartProducts, delivery]);
-      
+
+  const submitOrder = async () => {
+    const order = cartProducts.map((product) => {
+      return { id: product.id, quantity: product.quantity };
+    });
+
+    await toast.promise(apiCodeBurger.post("orders", { products: order }), {
+      pending: "Authorizating order",
+      success: "Order realized sucess !",
+      error: "Fail, something wrong, please try again",
+    });
+
+    setTimeout(() => {
+      navigate("/");
+    }, 9000);
+  };
+
   return (
     <ResumeContainer>
       <ItemsContainer>
@@ -43,7 +63,9 @@ export function CartResume() {
           <h1> {formatCurrency(finalPrice + delivery)}</h1>
         </TotalContainer>
       </ItemsContainer>
-      <Button className="button">Finish Order</Button>
+      <Button className="button" onClick={submitOrder}>
+        Finish Order
+      </Button>
     </ResumeContainer>
   );
 }
